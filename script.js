@@ -16,51 +16,63 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ========================================
-   パーティクル背景
+   ゆめかわ星パーティクル背景 ⭐🦄
    ======================================== */
 function initParticles() {
     const container = document.getElementById('particles-bg');
     if (!container) return;
     
-    const particleCount = 30;
+    const particleCount = 35;
+    // ゆめかわカラー（パステル系）
+    const colors = [
+        '#ffb8d9', // ピンク
+        '#d4b8ff', // ラベンダー
+        '#b8e4ff', // スカイブルー
+        '#ffd4b8', // ピーチ
+        '#b8ffd4', // ミント
+        '#ffe4b8', // クリーム
+        '#ffd700', // ゴールド（アクセント）
+    ];
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         
-        const size = Math.random() * 6 + 2;
+        const size = Math.random() * 14 + 8;
         const left = Math.random() * 100;
-        const duration = Math.random() * 15 + 10;
-        const delay = Math.random() * 10;
+        const duration = Math.random() * 12 + 8;
+        const delay = Math.random() * 8;
+        const color = colors[Math.floor(Math.random() * colors.length)];
         
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
+        particle.style.fontSize = `${size}px`;
         particle.style.left = `${left}%`;
+        particle.style.color = color;
         particle.style.animationDuration = `${duration}s`;
         particle.style.animationDelay = `${delay}s`;
+        particle.style.textShadow = `0 0 ${size/2}px ${color}`;
         
         container.appendChild(particle);
     }
 }
 
 /* ========================================
-   スパークル効果（ヒーローセクション）
+   シャボン玉キラキラ効果（ヒーローセクション）🫧✨
    ======================================== */
 function initSparkles() {
     const container = document.getElementById('sparkles');
     if (!container) return;
     
-    const sparkleCount = 20;
+    const sparkleCount = 25;
     
     for (let i = 0; i < sparkleCount; i++) {
         createSparkle(container);
     }
     
-    // 継続的にスパークル追加
+    // 継続的にシャボン玉追加
     setInterval(() => {
         const sparkle = createSparkle(container);
-        setTimeout(() => sparkle.remove(), 2000);
-    }, 300);
+        setTimeout(() => sparkle.remove(), 4500);
+    }, 400);
 }
 
 function createSparkle(container) {
@@ -68,39 +80,73 @@ function createSparkle(container) {
     sparkle.className = 'sparkle';
     
     const x = Math.random() * 100;
-    const y = Math.random() * 100;
+    const y = 60 + Math.random() * 40; // 下部から発生
+    const size = 15 + Math.random() * 35;
     const delay = Math.random() * 2;
     
-    sparkle.style.left = `${x}%`;
-    sparkle.style.top = `${y}%`;
-    sparkle.style.animationDelay = `${delay}s`;
+    // 虹色シャボン玉グラデーション
+    const hue1 = Math.random() * 60 + 300; // ピンク〜紫系
+    const hue2 = Math.random() * 60 + 180; // 水色〜青系
+    
+    sparkle.style.cssText = `
+        left: ${x}%;
+        top: ${y}%;
+        width: ${size}px;
+        height: ${size}px;
+        background: linear-gradient(
+            135deg,
+            hsla(${hue1}, 80%, 80%, 0.4) 0%,
+            hsla(${hue2}, 80%, 85%, 0.3) 50%,
+            hsla(${hue1 + 30}, 70%, 90%, 0.4) 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 
+            inset 0 0 ${size/3}px rgba(255, 255, 255, 0.3),
+            0 0 ${size/2}px rgba(255, 200, 255, 0.2);
+        animation-delay: ${delay}s;
+        animation-duration: ${3 + Math.random() * 2}s;
+    `;
     
     container.appendChild(sparkle);
     return sparkle;
 }
 
 /* ========================================
-   浮遊パーティクル
+   浮遊キラキラ星パーティクル ⭐✨
    ======================================== */
 function initFloatingParticles() {
     const container = document.getElementById('floating');
     if (!container) return;
     
-    const colors = ['#ff69b4', '#ffb6c1', '#ff8dc7', '#ffc0cb'];
+    // ゆめかわカラー
+    const colors = [
+        '#ffb8d9', // パステルピンク
+        '#d4b8ff', // パステルラベンダー
+        '#b8e4ff', // パステルブルー
+        '#ffd700', // ゴールド
+        '#fff0f5', // ラベンダーブラッシュ
+    ];
     
-    for (let i = 0; i < 12; i++) {
+    // 星のシンボル
+    const symbols = ['✦', '✧', '⭐', '✵', '☆', '✶'];
+    
+    for (let i = 0; i < 18; i++) {
         const particle = document.createElement('div');
         particle.className = 'floating-particle';
         
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-        const duration = Math.random() * 5 + 5;
-        const delay = Math.random() * 5;
+        const duration = Math.random() * 4 + 4;
+        const delay = Math.random() * 4;
         const color = colors[Math.floor(Math.random() * colors.length)];
+        const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+        const size = 12 + Math.random() * 14;
         
+        particle.textContent = symbol;
         particle.style.left = `${x}%`;
         particle.style.top = `${y}%`;
         particle.style.color = color;
+        particle.style.fontSize = `${size}px`;
         particle.style.animationDuration = `${duration}s`;
         particle.style.animationDelay = `${delay}s`;
         
