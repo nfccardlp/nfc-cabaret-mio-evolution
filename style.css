@@ -1,7 +1,250 @@
 /* ========================================
    Club Luna - Mio NFC Landing Page
-   💕 可愛い・女の子らしい・キュンとくるテーマ
+   💕 Evolution Version - 進化版
+   オープニングアニメーション & インタラクティブエフェクト
    ======================================== */
+
+/* ========================================
+   オープニングアニメーション
+   ======================================== */
+#opening-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffe8f0 0%, #ffd6e5 30%, #ffb8d0 60%, #ff9ec4 100%);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#opening-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.opening-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.opening-sparkles,
+.opening-petals {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.opening-sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffec8b;
+    animation: opening-twinkle 2s ease-in-out infinite;
+}
+
+@keyframes opening-twinkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
+}
+
+.opening-petal {
+    position: absolute;
+    top: -50px;
+    font-size: 24px;
+    animation: petal-fall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes petal-fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.opening-logo {
+    animation: opening-appear 1.5s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+@keyframes opening-appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(30px);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.1) translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.opening-heart {
+    display: block;
+    font-size: 3rem;
+    color: #ff69b4;
+    animation: heart-pulse 1s ease-in-out infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes heart-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.opening-name {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 600;
+    color: #ff1493;
+    text-shadow: 
+        0 0 20px rgba(255, 105, 180, 0.5),
+        0 0 40px rgba(255, 105, 180, 0.3),
+        2px 2px 4px rgba(255, 105, 180, 0.3);
+    animation: name-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes name-glow {
+    0% {
+        text-shadow: 
+            0 0 20px rgba(255, 105, 180, 0.5),
+            0 0 40px rgba(255, 105, 180, 0.3);
+    }
+    100% {
+        text-shadow: 
+            0 0 30px rgba(255, 105, 180, 0.8),
+            0 0 60px rgba(255, 105, 180, 0.5),
+            0 0 80px rgba(255, 105, 180, 0.3);
+    }
+}
+
+.opening-subtitle {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.5em;
+    color: #ff69b4;
+    margin-top: 10px;
+    animation: subtitle-fade 1s ease-out 0.5s forwards;
+    opacity: 0;
+}
+
+@keyframes subtitle-fade {
+    to {
+        opacity: 1;
+    }
+}
+
+.opening-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: #ff8dc7;
+    letter-spacing: 0.2em;
+    margin-top: 30px;
+    animation: text-fade 1s ease-out 1s forwards;
+    opacity: 0;
+}
+
+@keyframes text-fade {
+    to {
+        opacity: 0.8;
+    }
+}
+
+/* ========================================
+   インタラクティブエフェクト（タップ/クリック）
+   ======================================== */
+.effect-particle {
+    font-size: 20px;
+    animation: effect-burst 1s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes effect-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(360deg);
+    }
+}
+
+.effect-stars {
+    filter: drop-shadow(0 0 5px #ffd700);
+}
+
+.effect-petals {
+    filter: drop-shadow(0 0 3px #ffb6c1);
+}
+
+.effect-hearts {
+    filter: drop-shadow(0 0 5px #ff69b4);
+}
+
+.effect-sparkles {
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffec8b;
+}
+
+/* ボタンホバー時のキラキラ */
+.btn-hover-sparkle {
+    color: #ffd700;
+    animation: hover-sparkle 0.6s ease-out forwards;
+    text-shadow: 0 0 8px #ffd700;
+}
+
+@keyframes hover-sparkle {
+    0% {
+        opacity: 1;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(360deg) translateY(-20px);
+    }
+}
 
 /* Variables - 可愛いピンク系 */
 :root {
